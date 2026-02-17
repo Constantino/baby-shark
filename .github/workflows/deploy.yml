@@ -46,17 +46,10 @@ jobs:
           
           rsync -az --delete -e "ssh -i private_key.pem -o StrictHostKeyChecking=no" api/dist api/package.json api/package-lock.json $USER@$HOST:/app/baby-shark/
           
-          ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST "cat > /app/baby-shark/.env << EOF
-MONAD_RPC_URL=$MONAD_RPC_URL
-TOKEN_WMON=$TOKEN_WMON
-TOKEN_USDC=$TOKEN_USDC
-EOF"
+          ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST "echo 'MONAD_RPC_URL=$MONAD_RPC_URL' > /app/baby-shark/.env"
+          ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST "echo 'TOKEN_WMON=$TOKEN_WMON' >> /app/baby-shark/.env"
+          ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST "echo 'TOKEN_USDC=$TOKEN_USDC' >> /app/baby-shark/.env"
           
-          ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST << 'EOF'
-            cd /app/baby-shark
-            npm ci --omit=dev
-            pm2 describe baby-shark-api > /dev/null 2>&1 && pm2 restart baby-shark-api || pm2 start dist/main.js --name baby-shark-api
-            pm2 save
-EOF
+          ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST "cd /app/baby-shark && npm ci --omit=dev && (pm2 describe baby-shark-api > /dev/null 2>&1 && pm2 restart baby-shark-api || pm2 start dist/main.js --name baby-shark-api) && pm2 save"
           
           rm -f private_key.pem
