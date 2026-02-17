@@ -41,35 +41,22 @@ jobs:
         run: |
           echo "$SSH_KEY" > private_key.pem
           chmod 600 private_key.pem
-
-          # Ensure app directory exists
-          ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST \
-            "sudo mkdir -p /app/baby-shark && sudo chown ubuntu:ubuntu /app/baby-shark"
-
-          # Copy build artifacts to EC2
-          rsync -az --delete \
-            -e "ssh -i private_key.pem -o StrictHostKeyChecking=no" \
-            api/dist api/package.json api/package-lock.json \
-            $USER@$HOST:/app/baby-shark/
-
-          # Write .env file on EC2
-          ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST \
-            "cat > /app/baby-shark/.env << 'ENVEOF'
-MONAD_RPC_URL=${MONAD_RPC_URL}
-TOKEN_WMON=${TOKEN_WMON}
-TOKEN_USDC=${TOKEN_USDC}
-ENVEOF"
-
-          # Install prod deps + restart via pm2
+          
+          ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST "sudo mkdir -p /app/baby-shark && sudo chown ubuntu:ubuntu /app/baby-shark"
+          
+          rsync -az --delete -e "ssh -i private_key.pem -o StrictHostKeyChecking=no" api/dist api/package.json api/package-lock.json $USER@$HOST:/app/baby-shark/
+          
+          ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST "cat > /app/baby-shark/.env << EOF
+MONAD_RPC_URL=$MONAD_RPC_URL
+TOKEN_WMON=$TOKEN_WMON
+TOKEN_USDC=$TOKEN_USDC
+EOF"
+          
           ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST << 'EOF'
             cd /app/baby-shark
             npm ci --omit=dev
-
-            pm2 describe baby-shark-api > /dev/null 2>&1 \
-              && pm2 restart baby-shark-api \
-              || pm2 start dist/main.js --name baby-shark-api
-
+            pm2 describe baby-shark-api > /dev/null 2>&1 && pm2 restart baby-shark-api || pm2 start dist/main.js --name baby-shark-api
             pm2 save
-          EOF
-
+EOF
+          
           rm -f private_key.pem
