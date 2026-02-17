@@ -1,0 +1,55 @@
+name: Deploy Baby Shark API
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Build & Deploy to EC2
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: api/package-lock.json
+
+      - name: Install dependencies
+        working-directory: api
+        run: npm ci
+
+      - name: Build
+        working-directory: api
+        run: npm run build
+
+      - name: Deploy to EC2
+        env:
+          SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+          HOST: ${{ secrets.EC2_HOST }}
+          USER: ${{ secrets.EC2_USER }}
+          MONAD_RPC_URL: ${{ secrets.MONAD_RPC_URL }}
+          TOKEN_WMON: ${{ secrets.TOKEN_WMON }}
+          TOKEN_USDC: ${{ secrets.TOKEN_USDC }}
+        run: |
+          echo "$SSH_KEY" > private_key.pem
+          chmod 600 private_key.pem
+          
+          ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST "sudo mkdir -p /app/baby-shark && sudo chown ubuntu:ubuntu /app/baby-shark"
+          
+          rsync -az --delete -e "ssh -i private_key.pem -o StrictHostKeyChecking=no" api/dist api/package.json api/package-lock.json $USER@$HOST:/app/baby-shark/
+          
+          ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST "echo 'MONAD_RPC_URL=$MONAD_RPC_URL' > /app/baby-shark/.env"
+          ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST "echo 'TOKEN_WMON=$TOKEN_WMON' >> /app/baby-shark/.env"
+          ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST "echo 'TOKEN_USDC=$TOKEN_USDC' >> /app/baby-shark/.env"
+          
+          ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST "cd /app/baby-shark && npm ci --omit=dev && (pm2 describe baby-shark-api > /dev/null 2>&1 && pm2 restart baby-shark-api || pm2 start dist/main.js --name baby-shark-api) && pm2 save"
+          
+          rm -f private_key.pem
