@@ -20,8 +20,8 @@ const CONFIG = {
   rpcUrl: "https://monad-mainnet.drpc.org",
   WMON: "0x3bd359C1119dA7Da1D913D1C4D2B7c461115433A",
   USDC: "0x754704Bc059F8C67012fEd69BC8A327a5aafb603",
-  SWAP_ROUTER: "0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45", // Uniswap V3 SwapRouter02
-  QUOTER_V2: "0x61fFE014bA17989E743c5F6cB21bF9697530B21e",
+  SWAP_ROUTER: "0xfe31f71c1b106eac32f1a19239c9a9a72ddfb900", // Uniswap V3 SwapRouter02
+  QUOTER_V2: "0x661e93cca42afacb172121ef892830ca3b70f08d",
   
   // Available pools (WMON/USDC)
   POOLS: {
@@ -460,11 +460,12 @@ npm install viem
 |----------|---------|---------|
 | WMON | 0x3bd359C1119dA7Da1D913D1C4D2B7c461115433A | Wrapped MON |
 | USDC | 0x754704Bc059F8C67012fEd69BC8A327a5aafb603 | USD Coin |
-| SwapRouter02 | 0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45 | Uniswap V3 Router |
-| QuoterV2 | 0x61fFE014bA17989E743c5F6cB21bF9697530B21e | Price quotes |
+| SwapRouter02 | 0xfe31f71c1b106eac32f1a19239c9a9a72ddfb900 | Uniswap V3 Router |
+| QuoterV2 | 0x661e93cca42afacb172121ef892830ca3b70f08d | Price quotes |
 
 ## Links
 
 - Monad Docs: https://docs.monad.xyz
 - Uniswap V3 Docs: https://docs.uniswap.org/contracts/v3/overview
+- Uniswap Monad Deployments: https://docs.uniswap.org/contracts/v3/reference/deployments/monad-deployments
 - Explorer: https://monad.socialscan.io
