@@ -60,3 +60,25 @@ Skill installation, open the bot on Telegram and
 Install this skill https://github.com/Constantino/baby-shark/blob/main/docs/skills/uniswap-monad-wmon-usdc/SKILL.md
 ```
 
+## demo
+
+```
+give me the token balances on monad for that address
+
+Ragnarbot, [17/02/26 6:13 P.M.]
+Monad Balances for 0x3E6dD...A24e:
+
+• MON: 4.94
+• WMON: 9.9
+• USDC: 0.002217
+
+Constantino Mora | Kompensa.app, [17/02/26 6:16 P.M.]
+swap 0.1 wmon to usdc
+
+Ragnarbot, [17/02/26 6:17 P.M.]
+✅ Swap complete!
+
+Swapped 0.1 WMON → 0.002178 USDC
+
+Tx: 0x9713f68da1debe00e884c96dcc46752d63cf7ffc6b3b27ea7d5781b58333dd55
+```
