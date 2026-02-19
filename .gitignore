@@ -1,2 +1,7 @@
 **/.idea/
 **/lib/
+
+contracts/broadcast/
+contracts/.env
+contracts/cache/
+contracts/out/
