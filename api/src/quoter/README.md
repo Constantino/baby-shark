@@ -1,8 +1,6 @@
-# Monad Uniswap V3 Quoter
+# Base Uniswap V3 Quoter
 
-Fast batch quoter for **Uniswap V3 ONLY** on Monad blockchain.
-
-**V2 is NOT deployed on Monad** - this implementation uses only V3.
+Fast batch quoter for **Uniswap V3** on Base blockchain.
 
 ## Quick Start
 
@@ -14,10 +12,9 @@ npm install
 ### 2. Configure
 Edit `.env`:
 ```env
-MONAD_RPC_URL=https://your-monad-rpc-url
-TOKEN_USDC=0x...
-TOKEN_USDT=0x...
-TOKEN_SHIBA=0x...
+BASE_RPC_URL=https://mainnet.base.org
+TOKEN_WETH=0x4200000000000000000000000000000000000006
+TOKEN_USDC=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
 ```
 
 ### 3. Run
@@ -41,7 +38,7 @@ Returns all V3 quotes across 3 fee tiers (0.05%, 0.3%, 1%) + arbitrage opportuni
 
 ### Get Pair Quotes
 ```bash
-GET /quoter/pair/WMON/USDC
+GET /quoter/pair/WETH/USDC
 ```
 
 Returns quotes for specific pair across all fee tiers.
@@ -55,29 +52,26 @@ Returns detected arbitrage between different fee tiers.
 
 ## Trading Pairs
 
-- WMON/USDC
-- WMON/USDT
-- USDC/USDT
-- SHIBA/USDC
-- SHIBA/USDT
-- SHIBA/WMON
+Example pairs (configured via .env):
+- WETH/USDC
+- Add more tokens via TOKEN_* variables
 
 ## Official Addresses (Hardcoded)
 
-From https://docs.uniswap.org/contracts/v3/reference/deployments/monad-deployments
+From https://docs.uniswap.org/contracts/v3/reference/deployments
 
-- **Chain ID:** 143
-- **V3 Factory:** `0x204faca1764b154221e35c0d20abb3c525710498`
-- **QuoterV2:** `0x661e93cca42afacb172121ef892830ca3b70f08d`
-- **Multicall3:** `0xd1b797d92d87b688193a2b976efc8d577d204343`
-- **WMON:** `0x3bd359C1119dA7Da1D913D1C4D2B7c461115433A`
+- **Chain ID:** 8453
+- **V3 Factory:** `0x33128a8fC17869897dcE68Ed026d694621f6FDfD`
+- **QuoterV2:** `0x3d4e44Eb1374240CE5F1B871ab261CD16335B76a`
+- **Multicall3:** `0xcA11bde05977b3631167028862bE2a173976CA11`
+- **WETH:** `0x4200000000000000000000000000000000000006`
 
 ## Architecture
 
 ```
 Multicall3 Batch Query
   ↓
-6 pairs × 3 fee tiers = 18 quotes
+N pairs × 4 fee tiers = M quotes
   ↓
 Single RPC call (~20-50ms)
   ↓
@@ -92,10 +86,10 @@ Detect arbitrage opportunities
 {
   "quotes": [
     {
-      "pair": "WMON/USDC",
+      "pair": "WETH/USDC",
       "version": "v3",
       "fee": 3000,
-      "price": 1.5,
+      "price": 3000.5,
       "gasEstimate": "100000"
     }
   ],
@@ -111,8 +105,6 @@ Detect arbitrage opportunities
 
 ## Notes
 
-- **V2 NOT available** on Monad
-- **Native MON** must use WMON wrapper
-- **QuoterV2** is V3's quoter (not a universal V2/V3 quoter)
-
-See `V3-MIGRATION.md` for detailed changes.
+- Uses **Uniswap V3** on Base
+- **Native ETH** must use WETH wrapper (0x4200...0006)
+- Supports all standard V3 fee tiers (0.01%, 0.05%, 0.3%, 1%)
