@@ -7,7 +7,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { ethers } from 'ethers';
 import {
-  MONAD_MAINNET_ID,
+  BASE_MAINNET_ID,
   MULTICALL3,
   V3_FEE_TIERS,
   UNISWAP_V3_QUOTER_V2,
@@ -37,16 +37,16 @@ export class QuoterService implements OnModuleInit {
     this.loadTokensFromEnv();
 
     // Validate RPC URL
-    const rpcUrl = this.configService.get<string>('MONAD_RPC_URL');
+    const rpcUrl = this.configService.get<string>('BASE_RPC_URL');
     if (!rpcUrl || rpcUrl.includes('example.com')) {
       throw new Error(
-        'MONAD_RPC_URL not configured in .env file. Please set a valid Monad RPC endpoint.',
+        'BASE_RPC_URL not configured in .env file. Please set a valid Base RPC endpoint.',
       );
     }
 
     this.provider = new ethers.JsonRpcProvider(rpcUrl, {
-      chainId: MONAD_MAINNET_ID,
-      name: 'monad',
+      chainId: BASE_MAINNET_ID,
+      name: 'base',
     });
 
     this.multicall = new ethers.Contract(
@@ -65,7 +65,7 @@ export class QuoterService implements OnModuleInit {
     const pairCount = this.PAIRS.length;
     const tokenList = Object.keys(this.TOKENS).join(', ');
 
-    this.logger.log(`Quoter service initialized on Monad mainnet (V3 only)`);
+    this.logger.log(`Quoter service initialized on Base mainnet (V3 only)`);
     this.logger.log(`Loaded ${tokenCount} tokens: ${tokenList}`);
     this.logger.log(`Generated ${pairCount} pairs`);
   }
@@ -346,7 +346,7 @@ export class QuoterService implements OnModuleInit {
         message: `No V3 pools found for ${token0Symbol}/${token1Symbol}`,
         hint: 'This pair may not have liquidity on Uniswap V3',
         checkedFeeTiers: V3_FEE_TIERS,
-        rpcUrl: this.configService.get<string>('MONAD_RPC_URL'),
+        rpcUrl: this.configService.get<string>('BASE_RPC_URL'),
         token0Address: token0,
         token1Address: token1,
         errors: errors,
@@ -364,17 +364,17 @@ export class QuoterService implements OnModuleInit {
       return {
         status: 'connected',
         chainId: Number(network.chainId),
-        expectedChainId: MONAD_MAINNET_ID,
-        chainMatch: Number(network.chainId) === MONAD_MAINNET_ID,
+        expectedChainId: BASE_MAINNET_ID,
+        chainMatch: Number(network.chainId) === BASE_MAINNET_ID,
         blockNumber: blockNumber,
-        rpcUrl: this.configService.get<string>('MONAD_RPC_URL'),
+        rpcUrl: this.configService.get<string>('BASE_RPC_URL'),
       };
     } catch (error) {
       const errorMsg = error instanceof Error ? error.message : String(error);
       return {
         status: 'failed',
         error: errorMsg,
-        rpcUrl: this.configService.get<string>('MONAD_RPC_URL'),
+        rpcUrl: this.configService.get<string>('BASE_RPC_URL'),
       };
     }
   }
