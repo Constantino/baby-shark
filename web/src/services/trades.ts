@@ -4,7 +4,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "1.5 ETH",
     out: "3,240 USDC",
-    route: "ETH → USDC",
+    route: "Uniswap v4",
     chain: "Base",
     tx: "0x7a3f...9d2c",
     profitLoss: "+$124.50",
@@ -13,7 +13,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "10,000 USDC",
     out: "0.82 ETH",
-    route: "USDC → ETH",
+    route: "Uniswap v3",
     chain: "Base",
     tx: "0x1b4e...7f91",
     profitLoss: "-$32.00",
@@ -22,7 +22,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "500 DAI",
     out: "512 USDC",
-    route: "DAI → USDC",
+    route: "Uniswap v4",
     chain: "Base",
     tx: "0x9c2d...4a1b",
     profitLoss: "+$12.00",
@@ -31,7 +31,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "2.1 ETH",
     out: "4,100 USDT",
-    route: "ETH → USDT",
+    route: "Uniswap v3",
     chain: "Base",
     tx: "0xe5f8...b3c7",
     profitLoss: "+$89.20",
@@ -40,7 +40,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "8,000 USDT",
     out: "1.92 ETH",
-    route: "USDT → ETH",
+    route: "Uniswap v4",
     chain: "Base",
     tx: "0x2a6c...8e4d",
     profitLoss: "-$18.75",
@@ -49,7 +49,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "0.5 ETH",
     out: "1,080 USDC",
-    route: "ETH → USDC",
+    route: "Uniswap v3",
     chain: "Base",
     tx: "0x3b1c...a5e2",
     profitLoss: "+$45.00",
@@ -58,7 +58,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "2,000 USDC",
     out: "0.19 ETH",
-    route: "USDC → ETH",
+    route: "Uniswap v4",
     chain: "Base",
     tx: "0x4d2e...f6a3",
     profitLoss: "-$12.30",
@@ -67,7 +67,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "1.2 ETH",
     out: "2,590 USDT",
-    route: "ETH → USDT",
+    route: "Uniswap v3",
     chain: "Base",
     tx: "0x5e3f...b7c4",
     profitLoss: "+$67.80",
@@ -76,7 +76,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "15,000 USDT",
     out: "3.6 ETH",
-    route: "USDT → ETH",
+    route: "Uniswap v4",
     chain: "Base",
     tx: "0x6f4a...c8d5",
     profitLoss: "-$55.20",
@@ -85,7 +85,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "800 DAI",
     out: "818 USDC",
-    route: "DAI → USDC",
+    route: "Uniswap v3",
     chain: "Base",
     tx: "0x7a5b...d9e6",
     profitLoss: "+$18.00",
@@ -94,7 +94,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "3.0 ETH",
     out: "6,480 USDC",
-    route: "ETH → USDC",
+    route: "Uniswap v4",
     chain: "Base",
     tx: "0x8b6c...e0f7",
     profitLoss: "+$210.00",
@@ -103,7 +103,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "5,000 USDC",
     out: "0.41 ETH",
-    route: "USDC → ETH",
+    route: "Uniswap v3",
     chain: "Base",
     tx: "0x9c7d...f1a8",
     profitLoss: "-$22.50",
@@ -112,7 +112,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "1.8 ETH",
     out: "3,888 USDT",
-    route: "ETH → USDT",
+    route: "Uniswap v4",
     chain: "Base",
     tx: "0xad8e...a2b9",
     profitLoss: "+$95.40",
@@ -121,7 +121,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "4,200 USDC",
     out: "0.97 ETH",
-    route: "USDC → ETH",
+    route: "Uniswap v3",
     chain: "Base",
     tx: "0xbe9f...b3ca",
     profitLoss: "+$8.20",
@@ -130,7 +130,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "1,200 DAI",
     out: "1,228 USDC",
-    route: "DAI → USDC",
+    route: "Uniswap v4",
     chain: "Base",
     tx: "0xcf0a...c4db",
     profitLoss: "+$28.00",
@@ -139,7 +139,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "0.75 ETH",
     out: "1,620 USDC",
-    route: "ETH → USDC",
+    route: "Uniswap v3",
     chain: "Base",
     tx: "0xd01b...d5ec",
     profitLoss: "+$38.50",
@@ -148,7 +148,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "12,000 USDT",
     out: "2.88 ETH",
-    route: "USDT → ETH",
+    route: "Uniswap v4",
     chain: "Base",
     tx: "0xe12c...e6fd",
     profitLoss: "-$42.00",
@@ -157,7 +157,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "2.4 ETH",
     out: "5,184 USDC",
-    route: "ETH → USDC",
+    route: "Uniswap v3",
     chain: "Base",
     tx: "0xf23d...f7ae",
     profitLoss: "+$156.00",
@@ -166,7 +166,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "6,500 USDC",
     out: "1.56 ETH",
-    route: "USDC → ETH",
+    route: "Uniswap v4",
     chain: "Base",
     tx: "0x034e...a8bf",
     profitLoss: "-$15.80",
@@ -175,7 +175,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "350 DAI",
     out: "358 USDC",
-    route: "DAI → USDC",
+    route: "Uniswap v3",
     chain: "Base",
     tx: "0x145f...b9c0",
     profitLoss: "+$8.00",
@@ -184,7 +184,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "1.1 ETH",
     out: "2,376 USDT",
-    route: "ETH → USDT",
+    route: "Uniswap v4",
     chain: "Base",
     tx: "0x256a...cad1",
     profitLoss: "+$52.30",
@@ -193,7 +193,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "9,000 USDC",
     out: "2.16 ETH",
-    route: "USDC → ETH",
+    route: "Uniswap v3",
     chain: "Base",
     tx: "0x367b...dbe2",
     profitLoss: "+$24.00",
@@ -202,7 +202,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "4.0 ETH",
     out: "8,640 USDC",
-    route: "ETH → USDC",
+    route: "Uniswap v4",
     chain: "Base",
     tx: "0x478c...ecf3",
     profitLoss: "+$312.00",
@@ -211,7 +211,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "3,300 USDT",
     out: "0.79 ETH",
-    route: "USDT → ETH",
+    route: "Uniswap v3",
     chain: "Base",
     tx: "0x589d...fd04",
     profitLoss: "-$28.50",
@@ -220,7 +220,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "1.65 ETH",
     out: "3,564 USDC",
-    route: "ETH → USDC",
+    route: "Uniswap v4",
     chain: "Base",
     tx: "0x69ae...0e15",
     profitLoss: "+$98.20",
@@ -229,7 +229,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "7,200 USDC",
     out: "1.73 ETH",
-    route: "USDC → ETH",
+    route: "Uniswap v3",
     chain: "Base",
     tx: "0x7abf...1f26",
     profitLoss: "-$9.40",
@@ -238,7 +238,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "650 DAI",
     out: "666 USDC",
-    route: "DAI → USDC",
+    route: "Uniswap v4",
     chain: "Base",
     tx: "0x8bc0...2a37",
     profitLoss: "+$16.00",
@@ -247,7 +247,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "2.25 ETH",
     out: "4,860 USDT",
-    route: "ETH → USDT",
+    route: "Uniswap v3",
     chain: "Base",
     tx: "0x9cd1...3b48",
     profitLoss: "+$134.60",
@@ -256,7 +256,7 @@ const MOCK_TRADES: Trade[] = [
   {
     in: "11,000 USDC",
     out: "2.64 ETH",
-    route: "USDC → ETH",
+    route: "Uniswap v4",
     chain: "Base",
     tx: "0xade2...4c59",
     profitLoss: "-$38.20",
