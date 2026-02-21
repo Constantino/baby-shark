@@ -69,7 +69,9 @@ export function PerformanceChart({ data }: PerformanceChartProps) {
               tick={{ fontSize: 10 }}
               tickFormatter={(value) => {
                 const d = new Date(value);
-                return `${d.getMonth() + 1}/${d.getDate()}`;
+                const hours = d.getHours();
+                const minutes = d.getMinutes();
+                return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
               }}
               stroke="#71717a"
             />
@@ -93,7 +95,14 @@ export function PerformanceChart({ data }: PerformanceChartProps) {
                   : "—",
                 name ?? "Value",
               ]}
-              labelFormatter={(label) => new Date(label).toLocaleDateString()}
+              labelFormatter={(label) => {
+                const d = new Date(label);
+                return d.toLocaleString(undefined, {
+                  dateStyle: "short",
+                  timeStyle: "medium",
+                  hour12: false,
+                });
+              }}
             />
             <Area
               type="monotone"
