@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ConnectWallet } from "./ConnectWallet";
 
 const TABS = [
   { label: "Agent", href: "/agent" },
@@ -43,12 +44,7 @@ export function Navbar() {
             </Link>
           ))}
         </div>
-        <button
-          type="button"
-          className="rounded-full bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
-        >
-          Connect Wallet
-        </button>
+        <ConnectWallet />
       </div>
     </nav>
   );
