@@ -30,6 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta name="base:app_id" content="6999b80c49d3b2f3d407e8f6" />
         <link
           rel="icon"
           href="/BabySharkIcon.png?v=1"
