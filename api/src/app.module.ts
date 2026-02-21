@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { QuoterModule } from './quoter/quoter.module';
+import { LlmModule } from './llm/llm.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { QuoterModule } from './quoter/quoter.module';
       envFilePath: '.env',
     }),
     QuoterModule,
+    LlmModule,
   ],
   controllers: [AppController],
   providers: [AppService],
