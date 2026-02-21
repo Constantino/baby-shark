@@ -37,12 +37,7 @@ export class LlmService {
     const usage: TokenUsage = { input: 0, output: 0, total: 0, cacheWrite: 0, cacheRead: 0 };
 
     const selectedSkills = await this.selectSkills(userMessage, usage);
-    const skillsLabel = selectedSkills.length > 0
-      ? selectedSkills.map((name) => {
-          const skill = this.registry.get(name);
-          return skill ? `${name}(${skill.summarized ? 'summarized' : 'original'})` : name;
-        }).join(', ')
-      : 'none';
+    const skillsLabel = selectedSkills.join(', ') || 'none';
     this.logger.debug(`[${messageId}] selected skills: [${skillsLabel}]`);
 
     const system  = this.registry.buildSystemPrompt(selectedSkills);
@@ -126,10 +121,12 @@ export class LlmService {
     this.accumulateUsage(usage, response.usage);
 
     const text = response.content.find((b) => b.type === 'text')?.text ?? '[]';
+    const clean = text.trim().replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '').trim();
     try {
-      const parsed = JSON.parse(text.trim());
+      const parsed = JSON.parse(clean);
       return Array.isArray(parsed) ? parsed : [];
     } catch {
+      this.logger.warn(`skill selector returned unparseable response: ${text}`);
       return [];
     }
   }

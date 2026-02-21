@@ -12,8 +12,8 @@ export const ENV_KEYS = {
   SKILLS_PATH:       'SKILLS_PATH',
 } as const;
 
-export const SKILLS_PATH_DEFAULT            = join(process.cwd(), 'skills');
-export const SKILLS_SUMMARIES_DEFAULT_PATH  = join(process.cwd(), 'skills-summaries');
+export const SKILLS_PATH_DEFAULT = join(process.cwd(), 'skills');
+
 export const SKILL_SELECTOR_SYSTEM = [
   'You are a skill selector. Given a user message and a list of available skills,',
   'respond ONLY with a JSON array of skill names that are needed to answer the request.',
@@ -36,11 +36,8 @@ export const SECRETS_BLOCK_HEADER = '### Resolved credentials';
 export const SECRETS_BLOCK_FOOTER = (placeholders: string[]) =>
   `Use these values wherever the skill references ${placeholders.join(', ')}. Never ask the user for them.`;
 
-export const SKILL_FILE_NAME       = 'SKILL.md';
-export const SYSTEM_SKILL_NAMES    = ['response-format'] as const;
-export const SUMMARIZER_SKILL_NAME = 'skill-summarizer';
-export const SKILLS_SUMMARIES_PATH_ENV        = 'SKILLS_SUMMARIES_PATH';
-export const SKILLS_SUMMARIZATION_ENABLED_ENV = 'SKILLS_SUMMARIZATION_ENABLED';
+export const SKILL_FILE_NAME    = 'SKILL.md';
+export const SYSTEM_SKILL_NAMES = ['response-format'] as const;
 
 export const HTTP_LOG_BODY_LIMIT     = 300;
 export const HTTP_LOG_RESPONSE_LIMIT = 200;
@@ -54,7 +51,6 @@ export const ERROR_MESSAGES = {
   RATE_LIMITED:           (d: string) => `Rate limited: ${d}`,
 } as const;
 
-// Fallback regex patterns for third-party skills without frontmatter secrets
 export const THIRD_PARTY_SECRET_PATTERNS: RegExp[] = [
   /YOUR[_-]([A-Z0-9_-]+)/gi,
   /<your[_-]([a-z0-9_-]+)>/gi,
@@ -63,7 +59,6 @@ export const THIRD_PARTY_SECRET_PATTERNS: RegExp[] = [
 ];
 export const CUSTOM_SECRET_PATTERN = /\{\{([A-Z0-9_]+)\}\}/g;
 
-// USD per million tokens — update when Anthropic changes pricing
 export const MODEL_PRICING: Record<string, { input: number; output: number }> = {
   'claude-opus-4-6':           { input: 15.00, output: 75.00 },
   'claude-sonnet-4-6':         { input:  3.00, output: 15.00 },
