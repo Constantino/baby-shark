@@ -77,7 +77,7 @@ export default function Permit2Page() {
         nonce: BigInt(PERMIT_NONCE),
         deadline: BigInt(PERMIT_EXPIRATION),
       };
-      const sig = await signer.signTypedData(PERMIT2_DOMAIN, PERMIT2_TYPES, value);
+      const sig = await signer.signTypedData(PERMIT2_DOMAIN, PERMIT2_TYPES as unknown as Record<string, import("ethers").TypedDataField[]>, value);
       setSignature(sig);
       setStep("idle");
     } catch (err) {
