@@ -3,7 +3,6 @@ import { baseSepolia } from "wagmi/chains";
 
 const VAULT_ADDRESS = process.env.NEXT_PUBLIC_VAULT_ADDRESS! as `0x${string}`;
 const ASSET_ADDRESS = process.env.NEXT_PUBLIC_ASSET_ADDRESS! as `0x${string}`;
-const API_URL = process.env.NEXT_PUBLIC_API_URL!;
 
 const ERC20_ABI = [
   {
@@ -58,25 +57,5 @@ export async function depositToVault(
     account: receiver,
   });
 
-  // Step 3: register deposit in backend
-  await registerDeposit(receiver, amount, depositTxHash);
-
   return depositTxHash;
-}
-
-async function registerDeposit(
-  walletAddress: string,
-  amountWei: bigint,
-  txHash: string
-): Promise<void> {
-  await fetch(`${API_URL}/vault/deposit`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      vault_address: VAULT_ADDRESS,
-      wallet_address: walletAddress,
-      amount_deposited: amountWei.toString(),
-      tx_hash: txHash,
-    }),
-  });
 }

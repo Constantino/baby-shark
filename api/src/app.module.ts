@@ -4,8 +4,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { QuoterModule } from './quoter/quoter.module';
 import { LlmModule } from './llm/llm.module';
-import { DatabaseModule } from './database/database.module';
-import { VaultModule } from './vault/vault.module';
 
 @Module({
   imports: [
@@ -13,10 +11,8 @@ import { VaultModule } from './vault/vault.module';
       isGlobal: true,
       envFilePath: '.env',
     }),
-    DatabaseModule,
     QuoterModule,
     LlmModule,
-    VaultModule,
   ],
   controllers: [AppController],
   providers: [AppService],
