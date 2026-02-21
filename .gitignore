@@ -1,6 +1,6 @@
 **/.idea/
-**/lib/
 
+contracts/lib/
 contracts/broadcast/
 contracts/.env
 contracts/cache/
