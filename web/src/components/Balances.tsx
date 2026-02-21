@@ -1,10 +1,16 @@
+import { ExternalLinkIcon } from "@/components/icons/ExternalLinkIcon";
 import type { BalancesProps } from "@/types/balances";
 import { truncateAddress } from "@/utils/address";
 
 const BASESCAN_URL =
   process.env.NEXT_PUBLIC_BASESCAN_URL ?? "https://basescan.org";
+const AGENT_ADDRESS = process.env.NEXT_PUBLIC_AGENT_ADDRESS;
 
-export function Balances({ balances, totalInUsdc, vaultAddress }: BalancesProps) {
+export function Balances({
+  balances,
+  totalInUsdc,
+  vaultAddress,
+}: BalancesProps) {
   return (
     <div className="p-4">
       <h2 className="mb-3 text-lg font-semibold text-zinc-900 dark:text-zinc-100">
@@ -20,6 +26,22 @@ export function Balances({ balances, totalInUsdc, vaultAddress }: BalancesProps)
           USDC
         </span>
       </p>
+      <p className="mb-3 text-sm text-zinc-600 dark:text-zinc-400">
+        Agent address:{" "}
+        {AGENT_ADDRESS ? (
+          <a
+            href={`${BASESCAN_URL.replace(/\/$/, "")}/address/${AGENT_ADDRESS}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 font-medium text-zinc-900 underline decoration-zinc-400 underline-offset-2 hover:decoration-zinc-600 dark:text-zinc-100 dark:decoration-zinc-500 dark:hover:decoration-zinc-400"
+          >
+            {truncateAddress(AGENT_ADDRESS)}
+            <ExternalLinkIcon />
+          </a>
+        ) : (
+          <span className="text-zinc-500 dark:text-zinc-500">—</span>
+        )}
+      </p>
       {vaultAddress && (
         <p className="mb-3 text-sm text-zinc-600 dark:text-zinc-400">
           Vault:{" "}
@@ -27,9 +49,10 @@ export function Balances({ balances, totalInUsdc, vaultAddress }: BalancesProps)
             href={`${BASESCAN_URL.replace(/\/$/, "")}/address/${vaultAddress}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-medium text-zinc-900 underline decoration-zinc-400 underline-offset-2 hover:decoration-zinc-600 dark:text-zinc-100 dark:decoration-zinc-500 dark:hover:decoration-zinc-400"
+            className="inline-flex items-center gap-1 font-medium text-zinc-900 underline decoration-zinc-400 underline-offset-2 hover:decoration-zinc-600 dark:text-zinc-100 dark:decoration-zinc-500 dark:hover:decoration-zinc-400"
           >
             {truncateAddress(vaultAddress)}
+            <ExternalLinkIcon />
           </a>
         </p>
       )}
