@@ -1,6 +1,8 @@
 import { Balances } from "@/components/Balances";
+import { DepositsChart } from "@/components/DepositsChart";
 import { TradeActivity } from "@/components/TradeActivity";
 import { getBalances } from "@/services/balances";
+import { getDeposits } from "@/services/deposits";
 import { getTokenPrices } from "@/services/prices";
 import { getTrades } from "@/services/trades";
 
@@ -9,10 +11,11 @@ function parseBalance(value: string): number {
 }
 
 export default async function Home() {
-  const [balances, prices, trades] = await Promise.all([
+  const [balances, prices, trades, deposits] = await Promise.all([
     getBalances(),
     getTokenPrices(),
     getTrades(),
+    getDeposits(),
   ]);
   const totalInUsdc = balances.reduce(
     (sum, b) => sum + parseBalance(b.balance) * (prices[b.token] ?? 0),
@@ -20,6 +23,7 @@ export default async function Home() {
   );
   return (
     <div className="flex flex-col gap-6">
+      <DepositsChart data={deposits} />
       <Balances balances={balances} totalInUsdc={totalInUsdc} />
       <TradeActivity trades={trades} />
     </div>
