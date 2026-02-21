@@ -1,21 +1,25 @@
 import type { DepositDataPoint } from "@/types/deposit";
 
+// One day of mock data at 15-minute intervals (00, 15, 30, 45 minutes past each hour)
+const BASE = "2025-02-19T";
 const MOCK_DEPOSITS: DepositDataPoint[] = [
-  { date: "2025-02-05", deposits: 2_400, realizedPnl: 0, unrealizedPnl: 120, portfolioValue: 2_520 },
-  { date: "2025-02-06", deposits: 5_100, realizedPnl: 80, unrealizedPnl: -50, portfolioValue: 5_130 },
-  { date: "2025-02-07", deposits: 7_850, realizedPnl: 220, unrealizedPnl: 180, portfolioValue: 8_250 },
-  { date: "2025-02-08", deposits: 9_200, realizedPnl: 380, unrealizedPnl: -120, portfolioValue: 9_460 },
-  { date: "2025-02-09", deposits: 12_100, realizedPnl: 590, unrealizedPnl: 310, portfolioValue: 13_000 },
-  { date: "2025-02-10", deposits: 15_600, realizedPnl: 850, unrealizedPnl: -80, portfolioValue: 16_370 },
-  { date: "2025-02-11", deposits: 18_300, realizedPnl: 1_100, unrealizedPnl: 420, portfolioValue: 19_820 },
-  { date: "2025-02-12", deposits: 22_400, realizedPnl: 1_450, unrealizedPnl: 150, portfolioValue: 24_000 },
-  { date: "2025-02-13", deposits: 26_800, realizedPnl: 1_880, unrealizedPnl: -200, portfolioValue: 28_480 },
-  { date: "2025-02-14", deposits: 31_200, realizedPnl: 2_350, unrealizedPnl: 550, portfolioValue: 34_100 },
-  { date: "2025-02-15", deposits: 35_900, realizedPnl: 2_900, unrealizedPnl: 100, portfolioValue: 38_900 },
-  { date: "2025-02-16", deposits: 41_500, realizedPnl: 3_500, unrealizedPnl: -350, portfolioValue: 44_650 },
-  { date: "2025-02-17", deposits: 47_200, realizedPnl: 4_200, unrealizedPnl: 480, portfolioValue: 51_880 },
-  { date: "2025-02-18", deposits: 52_800, realizedPnl: 4_950, unrealizedPnl: -180, portfolioValue: 57_570 },
-  { date: "2025-02-19", deposits: 58_400, realizedPnl: 5_800, unrealizedPnl: 620, portfolioValue: 64_820 },
+  { date: `${BASE}00:00:00`, deposits: 52_800, realizedPnl: 4_950, unrealizedPnl: -180, portfolioValue: 57_570 },
+  { date: `${BASE}00:15:00`, deposits: 53_100, realizedPnl: 4_980, unrealizedPnl: -120, portfolioValue: 57_960 },
+  { date: `${BASE}00:30:00`, deposits: 53_400, realizedPnl: 5_010, unrealizedPnl: -60, portfolioValue: 58_350 },
+  { date: `${BASE}00:45:00`, deposits: 53_700, realizedPnl: 5_050, unrealizedPnl: 20, portfolioValue: 58_770 },
+  { date: `${BASE}01:00:00`, deposits: 54_000, realizedPnl: 5_100, unrealizedPnl: 80, portfolioValue: 59_180 },
+  { date: `${BASE}01:15:00`, deposits: 54_300, realizedPnl: 5_150, unrealizedPnl: 140, portfolioValue: 59_590 },
+  { date: `${BASE}01:30:00`, deposits: 54_600, realizedPnl: 5_220, unrealizedPnl: 180, portfolioValue: 60_000 },
+  { date: `${BASE}01:45:00`, deposits: 55_000, realizedPnl: 5_300, unrealizedPnl: 200, portfolioValue: 60_500 },
+  { date: `${BASE}02:00:00`, deposits: 55_400, realizedPnl: 5_380, unrealizedPnl: 320, portfolioValue: 61_100 },
+  { date: `${BASE}02:15:00`, deposits: 55_800, realizedPnl: 5_460, unrealizedPnl: 440, portfolioValue: 61_700 },
+  { date: `${BASE}02:30:00`, deposits: 56_200, realizedPnl: 5_550, unrealizedPnl: 450, portfolioValue: 62_200 },
+  { date: `${BASE}02:45:00`, deposits: 56_600, realizedPnl: 5_640, unrealizedPnl: 460, portfolioValue: 62_700 },
+  { date: `${BASE}03:00:00`, deposits: 57_000, realizedPnl: 5_720, unrealizedPnl: 480, portfolioValue: 63_200 },
+  { date: `${BASE}03:15:00`, deposits: 57_200, realizedPnl: 5_780, unrealizedPnl: 520, portfolioValue: 63_500 },
+  { date: `${BASE}03:30:00`, deposits: 57_400, realizedPnl: 5_840, unrealizedPnl: 560, portfolioValue: 63_800 },
+  { date: `${BASE}03:45:00`, deposits: 57_600, realizedPnl: 5_900, unrealizedPnl: 600, portfolioValue: 64_100 },
+  { date: `${BASE}04:00:00`, deposits: 58_400, realizedPnl: 5_800, unrealizedPnl: 620, portfolioValue: 64_820 },
 ];
 
 /** Simulates fetching deposit time series from an API. */
