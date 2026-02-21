@@ -1,3 +1,5 @@
+import { join } from 'path';
+
 export const LLM_DEFAULTS = {
   MODEL:        'claude-sonnet-4-6',
   MAX_TOKENS:   4096,
@@ -10,8 +12,8 @@ export const ENV_KEYS = {
   SKILLS_PATH:       'SKILLS_PATH',
 } as const;
 
-export const SKILLS_PATH_DEFAULT = '/Users/cristianchaparroa/hackathon/baby-shark/api/skills';
-
+export const SKILLS_PATH_DEFAULT            = join(process.cwd(), 'skills');
+export const SKILLS_SUMMARIES_DEFAULT_PATH  = join(process.cwd(), 'skills-summaries');
 export const SKILL_SELECTOR_SYSTEM = [
   'You are a skill selector. Given a user message and a list of available skills,',
   'respond ONLY with a JSON array of skill names that are needed to answer the request.',
@@ -37,8 +39,7 @@ export const SECRETS_BLOCK_FOOTER = (placeholders: string[]) =>
 export const SKILL_FILE_NAME       = 'SKILL.md';
 export const SYSTEM_SKILL_NAMES    = ['response-format'] as const;
 export const SUMMARIZER_SKILL_NAME = 'skill-summarizer';
-export const SKILLS_SUMMARIES_PATH_ENV     = 'SKILLS_SUMMARIES_PATH';
-export const SKILLS_SUMMARIES_DEFAULT_PATH = '/Users/cristianchaparroa/hackathon/baby-shark/api/skills-summaries';
+export const SKILLS_SUMMARIES_PATH_ENV        = 'SKILLS_SUMMARIES_PATH';
 export const SKILLS_SUMMARIZATION_ENABLED_ENV = 'SKILLS_SUMMARIZATION_ENABLED';
 
 export const HTTP_LOG_BODY_LIMIT     = 300;
