@@ -1,6 +1,7 @@
 "use client";
 
 import { ConnectWallet } from "@/components/ConnectWallet";
+import { SignRawTransaction } from "@/components/SignRawTransaction";
 import {
   CHAIN_ID,
   parseUsdcAmount,
@@ -192,6 +193,8 @@ export default function Permit2Page() {
           </p>
         )}
       </div>
+
+      <SignRawTransaction />
     </div>
   );
 }
