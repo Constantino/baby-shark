@@ -29,11 +29,11 @@ export const httpRequestToolDefinition: Tool = {
       },
       body: {
         type: 'string',
-        description: 'Raw request body as a string. For JSON payloads stringify the object yourself. For form data use key=value&... format.',
+        description: 'Raw request body as a string. For JSON payloads, stringify the object yourself. ALWAYS use JSON format for REST APIs unless the API explicitly requires a different format.',
       },
       content_type: {
         type: 'string',
-        description: 'Value for Content-Type header. Defaults to application/json. Use application/x-www-form-urlencoded for form data, text/plain for raw text, etc.',
+        description: 'Value for Content-Type header. Defaults to application/json. Only override when the target API explicitly requires a different content type.',
       },
     },
     required: ['url', 'method'],

@@ -13,6 +13,20 @@ metadata:
 
 Integrate Uniswap swaps into frontends, backends, and smart contracts.
 
+## ⚠️ CRITICAL: HTTP Request Rules
+
+**ALL requests to `trade-api.gateway.uniswap.org` MUST use these exact headers — no exceptions:**
+
+```
+Content-Type: application/json
+x-api-key: <your-api-key>
+x-universal-router-version: 2.0
+```
+
+- NEVER use `application/x-www-form-urlencoded` — the API will reject it with 415
+- ALWAYS serialize the request body as a JSON string
+- ALWAYS include all three headers on every call (`/check_approval`, `/quote`, `/swap`)
+
 ## Prerequisites
 
 This skill assumes familiarity with viem basics (client setup, account management, contract interactions, transaction signing). Install the **uniswap-viem** plugin for comprehensive viem/wagmi guidance: `claude plugin add @uniswap/uniswap-viem`
