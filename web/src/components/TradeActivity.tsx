@@ -21,9 +21,8 @@ export function TradeActivity({ trades }: TradeActivityProps) {
         Trade Activity
       </h1>
       <div className="rounded-md border border-zinc-200 dark:border-zinc-700">
-        <div className="max-h-[45vh] overflow-y-auto overflow-x-auto">
-          <table className="w-full min-w-[560px] border-collapse text-left text-xs">
-            <thead className="sticky top-0 z-10 bg-zinc-50 dark:bg-zinc-800/50">
+        <table className="w-full min-w-[560px] border-collapse text-left text-xs">
+          <thead className="bg-zinc-50 dark:bg-zinc-800/50">
               <tr className="border-b border-zinc-200 dark:border-zinc-700">
                 <th className="px-2 py-1.5 font-medium text-zinc-700 dark:text-zinc-300">
                   In
@@ -83,9 +82,8 @@ export function TradeActivity({ trades }: TradeActivityProps) {
                   </td>
                 </tr>
               ))}
-            </tbody>
-          </table>
-        </div>
+          </tbody>
+        </table>
         <div className="flex items-center justify-between gap-2 border-t border-zinc-200 bg-zinc-50 px-2 py-1.5 dark:border-zinc-700 dark:bg-zinc-800/50">
           <p className="text-xs text-zinc-600 dark:text-zinc-400">
             Showing {start + 1}–{Math.min(start + PAGE_SIZE, trades.length)} of{" "}
