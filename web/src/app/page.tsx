@@ -19,11 +19,9 @@ export default async function Home() {
     0
   );
   return (
-    <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
+    <div className="flex flex-col gap-6">
       <Balances balances={balances} totalInUsdc={totalInUsdc} />
-      <div className="min-w-0 flex-1">
-        <TradeActivity trades={trades} />
-      </div>
+      <TradeActivity trades={trades} />
     </div>
   );
 }
