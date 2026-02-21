@@ -1,34 +1,61 @@
-import { BrowserProvider, Contract, parseUnits } from "ethers";
+import { type WalletClient, parseUnits, getContract } from "viem";
+import { baseSepolia } from "wagmi/chains";
 
-const VAULT_ADDRESS = process.env.NEXT_PUBLIC_VAULT_ADDRESS!;
-const ASSET_ADDRESS = process.env.NEXT_PUBLIC_ASSET_ADDRESS!;
+const VAULT_ADDRESS = process.env.NEXT_PUBLIC_VAULT_ADDRESS! as `0x${string}`;
+const ASSET_ADDRESS = process.env.NEXT_PUBLIC_ASSET_ADDRESS! as `0x${string}`;
 
 const ERC20_ABI = [
-  "function approve(address spender, uint256 amount) returns (bool)",
-  "function decimals() view returns (uint8)",
-];
+  {
+    name: "approve",
+    type: "function",
+    inputs: [
+      { name: "spender", type: "address" },
+      { name: "amount", type: "uint256" },
+    ],
+    outputs: [{ type: "bool" }],
+    stateMutability: "nonpayable",
+  },
+] as const;
 
 const VAULT_ABI = [
-  "function deposit(uint256 assets, address receiver) returns (uint256 shares)",
-];
+  {
+    name: "deposit",
+    type: "function",
+    inputs: [
+      { name: "assets", type: "uint256" },
+      { name: "receiver", type: "address" },
+    ],
+    outputs: [{ name: "shares", type: "uint256" }],
+    stateMutability: "nonpayable",
+  },
+] as const;
 
-export async function depositToVault(amountHuman: string): Promise<string> {
-  if (!window.ethereum) throw new Error("No wallet found");
+export async function depositToVault(
+  walletClient: WalletClient,
+  amountHuman: string
+): Promise<string> {
+  const [receiver] = await walletClient.getAddresses();
+  const amount = parseUnits(amountHuman, 6); // USDC = 6 decimals
 
-  const provider = new BrowserProvider(window.ethereum);
-  const signer = await provider.getSigner();
-  const receiver = await signer.getAddress();
+  // Step 1: approve
+  const approveTxHash = await walletClient.writeContract({
+    address: ASSET_ADDRESS,
+    abi: ERC20_ABI,
+    functionName: "approve",
+    args: [VAULT_ADDRESS, amount],
+    chain: baseSepolia,
+    account: receiver,
+  });
 
-  const asset = new Contract(ASSET_ADDRESS, ERC20_ABI, signer);
-  const decimals: number = await asset.decimals();
-  const amount = parseUnits(amountHuman, decimals);
+  // Step 2: deposit
+  const depositTxHash = await walletClient.writeContract({
+    address: VAULT_ADDRESS,
+    abi: VAULT_ABI,
+    functionName: "deposit",
+    args: [amount, receiver],
+    chain: baseSepolia,
+    account: receiver,
+  });
 
-  const approveTx = await asset.approve(VAULT_ADDRESS, amount);
-  await approveTx.wait();
-
-  const vault = new Contract(VAULT_ADDRESS, VAULT_ABI, signer);
-  const depositTx = await vault.deposit(amount, receiver);
-  const receipt = await depositTx.wait();
-
-  return receipt.hash;
+  return depositTxHash;
 }
