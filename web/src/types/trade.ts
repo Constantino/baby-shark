@@ -5,6 +5,5 @@ export type Trade = {
   route: string;
   chain: string;
   tx: string;
-  profitLoss: string;
   timestamp: string;
 };
