@@ -21,7 +21,11 @@ export default async function AgentPage() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
-        <Balances balances={balances} totalInUsdc={totalInUsdc} />
+        <Balances
+          balances={balances}
+          totalInUsdc={totalInUsdc}
+          vaultAddress={process.env.NEXT_PUBLIC_VAULT_ADDRESS}
+        />
         <div className="min-w-0 flex-1">
           <PerformanceChart data={deposits} />
         </div>
