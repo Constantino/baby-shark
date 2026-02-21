@@ -35,6 +35,9 @@ jobs:
           SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
           HOST: ${{ secrets.EC2_HOST }}
           USER: ${{ secrets.EC2_USER }}
+          MONAD_RPC_URL: ${{ secrets.MONAD_RPC_URL }}
+          TOKEN_WMON: ${{ secrets.TOKEN_WMON }}
+          TOKEN_USDC: ${{ secrets.TOKEN_USDC }}
 
           BASE_RPC_URL: ${{ secrets.BASE_RPC_URL }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -49,6 +52,9 @@ jobs:
           
           rsync -az --delete -e "ssh -i private_key.pem -o StrictHostKeyChecking=no" api/dist api/package.json api/package-lock.json $USER@$HOST:/app/baby-shark/
           
+          ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST "echo 'MONAD_RPC_URL=$MONAD_RPC_URL' > /app/baby-shark/.env"
+          ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST "echo 'TOKEN_WMON=$TOKEN_WMON' >> /app/baby-shark/.env"
+          ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST "echo 'TOKEN_USDC=$TOKEN_USDC' >> /app/baby-shark/.env"
           ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST "echo 'BASE_RPC_URL=$BASE_RPC_URL' > /app/baby-shark/.env"
           ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST "echo 'ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY' >> /app/baby-shark/.env"
           ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST "echo 'ANTHROPIC_MODEL=$ANTHROPIC_MODEL' >> /app/baby-shark/.env"
