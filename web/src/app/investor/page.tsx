@@ -1,14 +1,13 @@
-import { ConnectWallet } from "@/components/ConnectWallet";
+"use client";
+
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { VaultDeposit } from "@/components/VaultDeposit";
 
 export default function InvestorPage() {
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100">
-          Investor Dashboard
-        </h1>
-        <ConnectWallet />
-      </div>
+    <div className="flex flex-col items-center gap-6 pt-10">
+      <ConnectButton chainStatus="full" />
+      <VaultDeposit />
     </div>
   );
 }
