@@ -23,8 +23,12 @@ export default async function Home() {
   );
   return (
     <div className="flex flex-col gap-6">
-      <DepositsChart data={deposits} />
-      <Balances balances={balances} totalInUsdc={totalInUsdc} />
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
+        <Balances balances={balances} totalInUsdc={totalInUsdc} />
+        <div className="min-w-0 flex-1">
+          <DepositsChart data={deposits} />
+        </div>
+      </div>
       <TradeActivity trades={trades} />
     </div>
   );
