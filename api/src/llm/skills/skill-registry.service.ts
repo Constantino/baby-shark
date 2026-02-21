@@ -106,7 +106,7 @@ export class SkillRegistryService {
     const requiredSecrets = this.extractFrontmatterList(raw, 'secrets');
     const stripped = this.stripFrontmatter(raw);
     const content = this.interpolateCustom(stripped);
-    return { name, description, content, requiredSecrets, summarized: false };
+    return { name, description, content, requiredSecrets };
   }
 
   private interpolateCustom(content: string): string {

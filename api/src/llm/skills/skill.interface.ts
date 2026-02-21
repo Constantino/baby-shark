@@ -3,5 +3,4 @@ export interface Skill {
   description: string;
   content: string;
   requiredSecrets: string[];
-  summarized: boolean;
 }

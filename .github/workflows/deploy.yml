@@ -43,7 +43,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           ANTHROPIC_MODEL: ${{ secrets.ANTHROPIC_MODEL }}
           SWAP_INTEGRATION_API_KEY: ${{ secrets.SWAP_INTEGRATION_API_KEY }}
-
+          SKILLS_SUMMARIZATION_ENABLED: ${{ secrets.SKILLS_SUMMARIZATION_ENABLED }}
         run: |
           echo "$SSH_KEY" > private_key.pem
           chmod 600 private_key.pem
@@ -59,6 +59,7 @@ jobs:
           ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST "echo 'ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY' >> /app/baby-shark/.env"
           ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST "echo 'ANTHROPIC_MODEL=$ANTHROPIC_MODEL' >> /app/baby-shark/.env"
           ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST "echo 'SWAP_INTEGRATION_API_KEY=$SWAP_INTEGRATION_API_KEY' >> /app/baby-shark/.env"
+          ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST "echo 'SKILLS_SUMMARIZATION_ENABLED=$SKILLS_SUMMARIZATION_ENABLED' >> /app/baby-shark/.env"
           
           ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST "cd /app/baby-shark && npm ci --omit=dev && (pm2 describe baby-shark-api > /dev/null 2>&1 && pm2 restart baby-shark-api || pm2 start dist/main.js --name baby-shark-api) && pm2 save"
           
