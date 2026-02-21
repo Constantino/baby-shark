@@ -12,7 +12,7 @@ export const ENV_KEYS = {
   SKILLS_PATH:       'SKILLS_PATH',
 } as const;
 
-export const SKILLS_PATH_DEFAULT            = join(process.cwd(), 'skills');
+export const SKILLS_PATH_DEFAULT            = join(process.cwd(), 'api', 'skills');
 export const SKILLS_SUMMARIES_DEFAULT_PATH  = join(process.cwd(), 'skills-summaries');
 export const SKILL_SELECTOR_SYSTEM = [
   'You are a skill selector. Given a user message and a list of available skills,',
