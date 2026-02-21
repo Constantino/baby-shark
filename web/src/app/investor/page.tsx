@@ -1,4 +1,5 @@
 import { ConnectWallet } from "@/components/ConnectWallet";
+import { VaultDeposit } from "@/components/VaultDeposit";
 
 export default function InvestorPage() {
   return (
@@ -8,6 +9,7 @@ export default function InvestorPage() {
           Investor Dashboard
         </h1>
         <ConnectWallet />
+        <VaultDeposit />
       </div>
     </div>
   );
