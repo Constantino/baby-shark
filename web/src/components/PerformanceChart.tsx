@@ -11,17 +11,16 @@ import {
 import type { DepositDataPoint } from "@/types/deposit";
 
 const LIGHT_BLUE = "#7dd3fc";
-const LIGHT_BLUE_FILL = "rgba(125, 211, 252, 0.4)";
 
-type DepositsChartProps = {
+type PerformanceChartProps = {
   data: DepositDataPoint[];
 };
 
-export function DepositsChart({ data }: DepositsChartProps) {
+export function PerformanceChart({ data }: PerformanceChartProps) {
   return (
     <div className="p-4">
       <h2 className="mb-3 text-lg font-semibold text-zinc-900 dark:text-zinc-100">
-        Deposits
+        Performance
       </h2>
       <div className="h-[240px] w-full">
         <ResponsiveContainer width="100%" height="100%">
@@ -30,7 +29,13 @@ export function DepositsChart({ data }: DepositsChartProps) {
             margin={{ top: 8, right: 8, left: 0, bottom: 0 }}
           >
             <defs>
-              <linearGradient id="depositsGradient" x1="0" y1="0" x2="0" y2="1">
+              <linearGradient
+                id="performanceGradient"
+                x1="0"
+                y1="0"
+                x2="0"
+                y2="1"
+              >
                 <stop offset="0%" stopColor={LIGHT_BLUE} stopOpacity={0.5} />
                 <stop offset="100%" stopColor={LIGHT_BLUE} stopOpacity={0} />
               </linearGradient>
@@ -61,7 +66,7 @@ export function DepositsChart({ data }: DepositsChartProps) {
                 value != null
                   ? new Intl.NumberFormat("en-US").format(value)
                   : "—",
-                "Deposits",
+                "Performance",
               ]}
               labelFormatter={(label) => new Date(label).toLocaleDateString()}
             />
@@ -70,7 +75,7 @@ export function DepositsChart({ data }: DepositsChartProps) {
               dataKey="deposits"
               stroke={LIGHT_BLUE}
               strokeWidth={2}
-              fill="url(#depositsGradient)"
+              fill="url(#performanceGradient)"
             />
           </AreaChart>
         </ResponsiveContainer>

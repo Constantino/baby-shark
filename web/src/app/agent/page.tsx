@@ -1,5 +1,5 @@
 import { Balances } from "@/components/Balances";
-import { DepositsChart } from "@/components/DepositsChart";
+import { PerformanceChart } from "@/components/PerformanceChart";
 import { TradeActivity } from "@/components/TradeActivity";
 import { getBalances } from "@/services/balances";
 import { getDeposits } from "@/services/deposits";
@@ -23,7 +23,7 @@ export default async function AgentPage() {
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
         <Balances balances={balances} totalInUsdc={totalInUsdc} />
         <div className="min-w-0 flex-1">
-          <DepositsChart data={deposits} />
+          <PerformanceChart data={deposits} />
         </div>
       </div>
       <TradeActivity trades={trades} />
