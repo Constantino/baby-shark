@@ -50,7 +50,7 @@ jobs:
           
           ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST "sudo mkdir -p /app/baby-shark && sudo chown ubuntu:ubuntu /app/baby-shark"
           
-          rsync -az --delete -e "ssh -i private_key.pem -o StrictHostKeyChecking=no" api/dist api/package.json api/package-lock.json $USER@$HOST:/app/baby-shark/
+          rsync -az --delete -e "ssh -i private_key.pem -o StrictHostKeyChecking=no" api/dist api/package.json api/package-lock.json api/skills $USER@$HOST:/app/baby-shark/
           
           ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST "echo 'MONAD_RPC_URL=$MONAD_RPC_URL' > /app/baby-shark/.env"
           ssh -i private_key.pem -o StrictHostKeyChecking=no $USER@$HOST "echo 'TOKEN_WMON=$TOKEN_WMON' >> /app/baby-shark/.env"
