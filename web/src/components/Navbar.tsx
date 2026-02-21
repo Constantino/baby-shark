@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -18,7 +19,13 @@ export function Navbar() {
           href="/"
           className="flex items-center gap-2 font-semibold text-zinc-900 dark:text-zinc-100"
         >
-          <span className="text-lg">🦈</span>
+          <Image
+            src="/BabySharkIcon.svg"
+            alt="Baby Shark"
+            width={32}
+            height={32}
+            className="h-8 w-8 object-contain"
+          />
           <span>Baby Shark</span>
         </Link>
         <div className="flex items-center gap-1">
