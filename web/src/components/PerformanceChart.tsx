@@ -15,6 +15,7 @@ const DARK_BLUE = "#1d4ed8";
 const GREEN = "#22c55e";
 const YELLOW = "#eab308";
 const RED = "#ef4444";
+const ORANGE = "#f97316";
 
 type PerformanceChartProps = {
   data: DepositDataPoint[];
@@ -127,6 +128,14 @@ export function PerformanceChart({ data }: PerformanceChartProps) {
               stroke={DARK_BLUE}
               strokeWidth={2}
               fill="url(#performanceGradient)"
+            />
+            <Line
+              type="monotone"
+              dataKey="withdrawals"
+              name="Withdrawals"
+              stroke={ORANGE}
+              strokeWidth={2}
+              dot={false}
             />
             <Line
               type="monotone"
