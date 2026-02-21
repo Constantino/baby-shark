@@ -62,13 +62,13 @@ export class SkillRegistryService {
       .join('\n');
   }
 
-  buildSystemPrompt(skillNames: string[]): string {
+  buildSystemPrompt(skillNames: string[]): { type: 'text'; text: string; cache_control?: { type: 'ephemeral' } }[] {
     const selected = skillNames
       .map((name) => this.skills.get(name))
       .filter((s): s is Skill => !!s);
 
     const all = [...this.systemSkills, ...selected];
-    if (all.length === 0) return '';
+    if (all.length === 0) return [];
 
     const skillDocs = all.map((s) => {
       const secrets = this.secretsManager.getSecrets(s.name);
@@ -83,7 +83,10 @@ export class SkillRegistryService {
       return `## Skill: ${s.name}\n${secretsBlock}\n${s.content}`;
     }).join('\n\n---\n\n');
 
-    return [AGENT_SYSTEM_PREAMBLE, '', skillDocs].join('\n');
+    return [
+      { type: 'text', text: AGENT_SYSTEM_PREAMBLE },
+      { type: 'text', text: skillDocs, cache_control: { type: 'ephemeral' } },
+    ];
   }
 
   getAll(): Skill[] {
@@ -94,12 +97,16 @@ export class SkillRegistryService {
     return this.skills.has(name);
   }
 
+  get(name: string): Skill | undefined {
+    return this.skills.get(name) ?? this.systemSkills.find((s) => s.name === name);
+  }
+
   private parseSkill(name: string, fallbackDescription: string, raw: string): Skill {
     const description = this.extractFrontmatter(raw, 'description') ?? fallbackDescription ?? name;
     const requiredSecrets = this.extractFrontmatterList(raw, 'secrets');
     const stripped = this.stripFrontmatter(raw);
     const content = this.interpolateCustom(stripped);
-    return { name, description, content, requiredSecrets };
+    return { name, description, content, requiredSecrets, summarized: false };
   }
 
   private interpolateCustom(content: string): string {

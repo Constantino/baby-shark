@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { HTTP_REQUEST_TOOL_NAME } from './http-request.tool';
-import { DEFAULT_CONTENT_TYPE, HTTP_LOG_BODY_LIMIT, HTTP_LOG_RESPONSE_LIMIT } from '../llm.constants';
+import { DEFAULT_CONTENT_TYPE, HTTP_LOG_RESPONSE_LIMIT } from '../llm.constants';
 
 export interface HttpRequestInput {
   url: string;
@@ -30,8 +30,6 @@ export class HttpRequestExecutor {
     };
 
     this.logger.debug(`${method} ${finalUrl}`);
-    if (body) this.logger.debug(`  body: ${body.length > HTTP_LOG_BODY_LIMIT ? body.slice(0, HTTP_LOG_BODY_LIMIT) + '…' : body}`);
-
 
     const response = await fetch(finalUrl, {
       method,

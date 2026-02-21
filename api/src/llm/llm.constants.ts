@@ -34,6 +34,10 @@ export const SECRETS_BLOCK_FOOTER = (placeholders: string[]) =>
 
 export const SKILL_FILE_NAME       = 'SKILL.md';
 export const SYSTEM_SKILL_NAMES    = ['response-format'] as const;
+export const SUMMARIZER_SKILL_NAME = 'skill-summarizer';
+export const SKILLS_SUMMARIES_PATH_ENV     = 'SKILLS_SUMMARIES_PATH';
+export const SKILLS_SUMMARIES_DEFAULT_PATH = '/Users/cristianchaparroa/hackathon/baby-shark/api/skills-summaries';
+export const SKILLS_SUMMARIZATION_ENABLED_ENV = 'SKILLS_SUMMARIZATION_ENABLED';
 
 export const HTTP_LOG_BODY_LIMIT     = 300;
 export const HTTP_LOG_RESPONSE_LIMIT = 200;

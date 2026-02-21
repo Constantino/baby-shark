@@ -15,7 +15,7 @@ import {
   ENV_KEYS,
 } from './llm.constants';
 
-interface TokenUsage { input: number; output: number; total: number }
+interface TokenUsage { input: number; output: number; total: number; cacheWrite: number; cacheRead: number }
 
 @Injectable()
 export class LlmService {
@@ -34,12 +34,18 @@ export class LlmService {
 
   async chat(userMessage: string): Promise<string> {
     const messageId = randomUUID();
-    const usage: TokenUsage = { input: 0, output: 0, total: 0 };
+    const usage: TokenUsage = { input: 0, output: 0, total: 0, cacheWrite: 0, cacheRead: 0 };
 
     const selectedSkills = await this.selectSkills(userMessage, usage);
-    this.logger.debug(`[${messageId}] selected skills: [${selectedSkills.join(', ')}]`);
+    const skillsLabel = selectedSkills.length > 0
+      ? selectedSkills.map((name) => {
+          const skill = this.registry.get(name);
+          return skill ? `${name}(${skill.summarized ? 'summarized' : 'original'})` : name;
+        }).join(', ')
+      : 'none';
+    this.logger.debug(`[${messageId}] selected skills: [${skillsLabel}]`);
 
-    const system   = this.registry.buildSystemPrompt(selectedSkills);
+    const system  = this.registry.buildSystemPrompt(selectedSkills);
     const messages: MessageParam[] = [{ role: 'user', content: userMessage }];
     let reply  = '';
     let retry  = 0;
@@ -57,7 +63,7 @@ export class LlmService {
       const response = await this.client.messages.create({
         model:      this.model,
         max_tokens: LLM_DEFAULTS.MAX_TOKENS,
-        system:     system || undefined,
+        system:     system.length > 0 ? system : undefined,
         tools:      [httpRequestToolDefinition],
         messages,
       });
@@ -97,8 +103,9 @@ export class LlmService {
     }
 
     this.logger.log(
-      `[${messageId}] skills: [${selectedSkills.join(', ') || 'none'}] | ` +
+      `[${messageId}] skills: [${skillsLabel}] | ` +
       `tokens — input: ${usage.input}, output: ${usage.output}, total: ${usage.total} | ` +
+      `cache — write: ${usage.cacheWrite}, read: ${usage.cacheRead} | ` +
       `cost: $${this.estimateCost(usage)}`,
     );
 
@@ -135,9 +142,11 @@ export class LlmService {
     return cost.toFixed(6);
   }
 
-  private accumulateUsage(acc: TokenUsage, usage: { input_tokens: number; output_tokens: number }): void {
-    acc.input  += usage.input_tokens;
-    acc.output += usage.output_tokens;
-    acc.total  += usage.input_tokens + usage.output_tokens;
+  private accumulateUsage(acc: TokenUsage, usage: { input_tokens: number; output_tokens: number; cache_creation_input_tokens?: number | null; cache_read_input_tokens?: number | null }): void {
+    acc.input      += usage.input_tokens;
+    acc.output     += usage.output_tokens;
+    acc.total      += usage.input_tokens + usage.output_tokens;
+    acc.cacheWrite += usage.cache_creation_input_tokens ?? 0;
+    acc.cacheRead  += usage.cache_read_input_tokens ?? 0;
   }
 }
