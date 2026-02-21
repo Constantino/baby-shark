@@ -1,5 +1,4 @@
-export type DepositDataPoint = {
-  date: string;
+export type PerformanceMetricsProps = {
   deposits: number;
   withdrawals: number;
   realizedPnl: number;

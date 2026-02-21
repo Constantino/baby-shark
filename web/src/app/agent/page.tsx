@@ -1,5 +1,6 @@
 import { Balances } from "@/components/Balances";
 import { PerformanceChart } from "@/components/PerformanceChart";
+import { PerformanceMetrics } from "@/components/PerformanceMetrics";
 import { TradeActivity } from "@/components/TradeActivity";
 import { getBalances } from "@/services/balances";
 import { getDeposits } from "@/services/deposits";
@@ -26,8 +27,17 @@ export default async function AgentPage() {
           totalInUsdc={totalInUsdc}
           vaultAddress={process.env.NEXT_PUBLIC_VAULT_ADDRESS}
         />
-        <div className="min-w-0 flex-1">
+        <div className="min-w-0 flex-1 flex flex-col gap-6">
           <PerformanceChart data={deposits} />
+          {deposits.length > 0 && (
+            <PerformanceMetrics
+              deposits={deposits[deposits.length - 1].deposits}
+              withdrawals={deposits[deposits.length - 1].withdrawals}
+              realizedPnl={deposits[deposits.length - 1].realizedPnl}
+              unrealizedPnl={deposits[deposits.length - 1].unrealizedPnl}
+              portfolioValue={deposits[deposits.length - 1].portfolioValue}
+            />
+          )}
         </div>
       </div>
       <TradeActivity trades={trades} />
