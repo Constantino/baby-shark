@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ConnectWallet } from "./ConnectWallet";
 
 const TABS = [
   { label: "Agent", href: "/agent" },
@@ -44,7 +43,6 @@ export function Navbar() {
             </Link>
           ))}
         </div>
-        <ConnectWallet />
       </div>
     </nav>
   );
