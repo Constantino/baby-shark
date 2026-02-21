@@ -57,8 +57,10 @@ export function DepositsChart({ data }: DepositsChartProps) {
                 borderRadius: 6,
                 border: "1px solid #e4e4e7",
               }}
-              formatter={(value: number) => [
-                new Intl.NumberFormat("en-US").format(value),
+              formatter={(value: number | undefined) => [
+                value != null
+                  ? new Intl.NumberFormat("en-US").format(value)
+                  : "—",
                 "Deposits",
               ]}
               labelFormatter={(label) => new Date(label).toLocaleDateString()}
