@@ -33,6 +33,10 @@ resource "aws_instance" "baby_shark" {
     volume_type = "gp2"
   }
 
+  lifecycle {
+    prevent_destroy = true
+  }
+
   tags = {
     Name    = "baby-shark-api"
     Project = var.project_name
