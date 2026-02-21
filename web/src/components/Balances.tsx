@@ -1,18 +1,17 @@
-import type { TokenBalance } from "@/types/token-balance";
+import type { BalancesProps } from "@/types/balances";
+import { truncateAddress } from "@/utils/address";
 
-type BalancesProps = {
-  balances: TokenBalance[];
-  totalInUsdc: number;
-};
+const BASESCAN_URL =
+  process.env.NEXT_PUBLIC_BASESCAN_URL ?? "https://basescan.org";
 
-export function Balances({ balances, totalInUsdc }: BalancesProps) {
+export function Balances({ balances, totalInUsdc, vaultAddress }: BalancesProps) {
   return (
     <div className="p-4">
       <h2 className="mb-3 text-lg font-semibold text-zinc-900 dark:text-zinc-100">
         Balances
       </h2>
       <p className="mb-3 text-sm text-zinc-600 dark:text-zinc-400">
-        Total:{" "}
+        TVL:{" "}
         <span className="font-medium text-zinc-900 dark:text-zinc-100">
           {new Intl.NumberFormat("en-US", {
             minimumFractionDigits: 2,
@@ -21,6 +20,19 @@ export function Balances({ balances, totalInUsdc }: BalancesProps) {
           USDC
         </span>
       </p>
+      {vaultAddress && (
+        <p className="mb-3 text-sm text-zinc-600 dark:text-zinc-400">
+          Vault:{" "}
+          <a
+            href={`${BASESCAN_URL.replace(/\/$/, "")}/address/${vaultAddress}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-zinc-900 underline decoration-zinc-400 underline-offset-2 hover:decoration-zinc-600 dark:text-zinc-100 dark:decoration-zinc-500 dark:hover:decoration-zinc-400"
+          >
+            {truncateAddress(vaultAddress)}
+          </a>
+        </p>
+      )}
       <div className="rounded-md border border-zinc-200 dark:border-zinc-700">
         <table className="w-full min-w-[200px] border-collapse text-left text-xs">
           <thead className="bg-zinc-50 dark:bg-zinc-800/50">
