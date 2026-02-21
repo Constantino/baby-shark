@@ -5,3 +5,6 @@ contracts/broadcast/
 contracts/.env
 contracts/cache/
 contracts/out/
+
+# directory
+.DS_Store
