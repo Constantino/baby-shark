@@ -1,6 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { QuoterService } from './quoter.service';
-import { BatchQuoteResult, PriceQuote } from './interfaces/quoter.interface';
+import { PriceQuote } from './interfaces/quoter.interface';
 
 @Controller('quoter')
 export class QuoterController {
@@ -9,16 +9,6 @@ export class QuoterController {
   @Get('health')
   async checkHealth() {
     return this.quoterService.checkRpcConnection();
-  }
-
-  @Get('tokens')
-  getAvailableTokens() {
-    return this.quoterService.getAvailableTokens();
-  }
-
-  @Get('batch')
-  async batchQuoteAll(): Promise<BatchQuoteResult> {
-    return this.quoterService.batchQuoteAllPairs();
   }
 
   @Get('pair/:token0/:token1')
@@ -30,10 +20,5 @@ export class QuoterController {
       token0.toUpperCase(),
       token1.toUpperCase(),
     );
-  }
-
-  @Get('opportunities')
-  async getOpportunities(): Promise<BatchQuoteResult> {
-    return this.quoterService.batchQuoteAllPairs();
   }
 }
