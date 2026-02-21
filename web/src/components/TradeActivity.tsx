@@ -74,7 +74,14 @@ export function TradeActivity({ trades }: TradeActivityProps) {
                     {trade.chain}
                   </td>
                   <td className="px-2 py-1.5 font-mono text-zinc-600 dark:text-zinc-400">
-                    {trade.tx}
+                    <a
+                      href={`https://basescan.org/tx/${trade.txHash}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-500 hover:text-blue-400 hover:underline"
+                    >
+                      {trade.tx}
+                    </a>
                   </td>
                   <td className="px-2 py-1.5 text-zinc-600 dark:text-zinc-400">
                     {trade.timestamp}

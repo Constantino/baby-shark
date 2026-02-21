@@ -129,6 +129,7 @@ export async function getTrades(): Promise<Trade[]> {
         route: detectRoute(hash, outgoing),
         chain: "Base",
         tx: shortTx,
+        txHash: hash,
         timestamp: formatTimestamp(ts),
       });
     } else if (outs.length > 0 && ins.length === 0) {
@@ -141,6 +142,7 @@ export async function getTrades(): Promise<Trade[]> {
         route: detectRoute(hash, outgoing),
         chain: "Base",
         tx: shortTx,
+        txHash: hash,
         timestamp: formatTimestamp(ts),
       });
     }
