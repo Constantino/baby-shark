@@ -15,26 +15,10 @@ export interface PriceQuote {
   timestamp: number;
 }
 
-export interface ArbitrageOpportunity {
-  buyOn: PriceQuote;
-  sellOn: PriceQuote;
-  profitPercent: number;
-  profitAmount: string;
-  route: string;
-  timestamp: number;
-}
-
 export interface QuoterConfig {
   rpcUrl: string;
   chainId: number;
   multicallAddress: string;
   defaultAmountIn: string; // in wei
   pollingInterval?: number; // ms
-}
-
-export interface BatchQuoteResult {
-  quotes: PriceQuote[];
-  opportunities: ArbitrageOpportunity[];
-  timestamp: number;
-  executionTime: number; // ms
 }
