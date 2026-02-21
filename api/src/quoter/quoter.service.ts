@@ -21,16 +21,14 @@ export class QuoterService implements OnModuleInit {
   private v3Quoter: ethers.Contract;
   private readonly DEFAULT_AMOUNT_IN = ethers.parseUnits('1', 18);
 
-  private TOKENS: Record<string, string> = {};
-  private PAIRS: Array<{ token0: string; token1: string }> = [];
+  private readonly TOKENS: Record<string, string> = {
+    USDC: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
+    WETH: '0x4200000000000000000000000000000000000006',
+  };
 
   constructor(private configService: ConfigService) {}
 
   onModuleInit() {
-    // Load tokens from config
-    this.loadTokensFromEnv();
-
-    // Validate RPC URL
     const rpcUrl = this.configService.get<string>('BASE_RPC_URL');
     if (!rpcUrl || rpcUrl.includes('example.com')) {
       throw new Error(
@@ -49,57 +47,7 @@ export class QuoterService implements OnModuleInit {
       this.provider,
     );
 
-    const tokenCount = Object.keys(this.TOKENS).length;
-    const pairCount = this.PAIRS.length;
-    const tokenList = Object.keys(this.TOKENS).join(', ');
-
     this.logger.log(`Quoter service initialized on Base mainnet (V3 only)`);
-    this.logger.log(`Loaded ${tokenCount} tokens: ${tokenList}`);
-    this.logger.log(`Generated ${pairCount} pairs`);
-  }
-
-  private loadTokensFromEnv() {
-    const tokens: Record<string, string> = {};
-
-    // Scan for TOKEN_ prefix
-    for (const [key, value] of Object.entries(process.env)) {
-      if (key.startsWith('TOKEN_') && value) {
-        const tokenName = key.replace('TOKEN_', '');
-        tokens[tokenName] = value;
-      }
-    }
-
-    if (Object.keys(tokens).length === 0) {
-      throw new Error(
-        'No tokens found in .env file. Please add TOKEN_* variables (e.g., TOKEN_USDC=0x...)',
-      );
-    }
-
-    this.TOKENS = tokens;
-    this.PAIRS = this.generatePairs();
-
-    this.logger.log(
-      `[Tokens] Loaded from env: ${Object.keys(tokens).join(', ')}`,
-    );
-  }
-
-  private generatePairs(): Array<{ token0: string; token1: string }> {
-    const tokenNames = Object.keys(this.TOKENS);
-    const pairs: Array<{ token0: string; token1: string }> = [];
-
-    for (let i = 0; i < tokenNames.length; i++) {
-      for (let j = i + 1; j < tokenNames.length; j++) {
-        pairs.push({
-          token0: tokenNames[i],
-          token1: tokenNames[j],
-        });
-      }
-    }
-
-    this.logger.log(
-      `[Pairs] Generated ${pairs.length} pairs from ${tokenNames.length} tokens`,
-    );
-    return pairs;
   }
 
   async getQuoteForPair(
@@ -112,18 +60,16 @@ export class QuoterService implements OnModuleInit {
     if (!token0) {
       throw new BadRequestException({
         error: 'Token Not Found',
-        message: `Token '${token0Symbol}' not configured in .env`,
+        message: `Token '${token0Symbol}' is not supported`,
         availableTokens: Object.keys(this.TOKENS),
-        hint: `Add TOKEN_${token0Symbol}=0x... to your .env file`,
       });
     }
 
     if (!token1) {
       throw new BadRequestException({
         error: 'Token Not Found',
-        message: `Token '${token1Symbol}' not configured in .env`,
+        message: `Token '${token1Symbol}' is not supported`,
         availableTokens: Object.keys(this.TOKENS),
-        hint: `Add TOKEN_${token1Symbol}=0x... to your .env file`,
       });
     }
 
