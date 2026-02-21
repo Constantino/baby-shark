@@ -6,7 +6,7 @@ import { SkillRegistryService } from './skills/skill-registry.service';
 import { SecretsManagerService } from './skills/secrets-manager.service';
 import { SkillSummarizerService } from './skills/skill-summarizer.service';
 import { HttpRequestExecutor } from './tools/http-request.executor';
-import { ENV_KEYS, SUMMARIZER_SKILL_NAME, SYSTEM_SKILL_NAMES } from './llm.constants';
+import { ENV_KEYS, SKILLS_PATH_DEFAULT, SUMMARIZER_SKILL_NAME, SYSTEM_SKILL_NAMES } from './llm.constants';
 
 @Module({
   controllers: [LlmController],
@@ -21,7 +21,7 @@ export class LlmModule implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
-    const raw   = this.config.get<string>(ENV_KEYS.SKILLS_PATH, '');
+    const raw   = this.config.get<string>(ENV_KEYS.SKILLS_PATH, SKILLS_PATH_DEFAULT);
     const paths = raw.split(',').map((p) => p.trim()).filter(Boolean);
 
     for (const p of paths) {

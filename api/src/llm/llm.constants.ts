@@ -10,6 +10,8 @@ export const ENV_KEYS = {
   SKILLS_PATH:       'SKILLS_PATH',
 } as const;
 
+export const SKILLS_PATH_DEFAULT = '/Users/cristianchaparroa/hackathon/baby-shark/api/skills';
+
 export const SKILL_SELECTOR_SYSTEM = [
   'You are a skill selector. Given a user message and a list of available skills,',
   'respond ONLY with a JSON array of skill names that are needed to answer the request.',
